@@ -1,3 +1,5 @@
-import FeedbackProvider, {FeedbackProviderContext} from "./feedbackProvider";
-import Test from "./test";
-export {FeedbackProvider, FeedbackProviderContext, Test}
+import FeedbackProvider, { FeedbackProviderContext } from "./feedbackProvider";
+import Modal from "./modal";
+import Carousel from "./carousel";
+
+export { FeedbackProvider, FeedbackProviderContext, Modal, Carousel };
