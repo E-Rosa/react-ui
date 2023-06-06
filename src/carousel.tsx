@@ -6,7 +6,7 @@ export const CarouselContext = createContext({
   previousPage: () => {},
   goToPage: (page: number) => {},
 });
-function Carousel({ children }: { children: JSX.Element[] }) {
+export function Carousel({ children }: { children: JSX.Element[] }) {
 
   const [activeViewKey, setActiveViewKey] = useState(0);
   const paginationButtons = children.map((_, key) => {
@@ -66,4 +66,3 @@ function Carousel({ children }: { children: JSX.Element[] }) {
   );
 }
 
-export default Carousel;
