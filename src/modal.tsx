@@ -36,7 +36,7 @@ export const ModalContext = createContext({
   setTransparent: (b: boolean) => {},
 });
 
-function Modal({
+export function Modal({
   children,
   setIsActive,
   isActive,
@@ -100,5 +100,3 @@ function Modal({
     </>
   );
 }
-
-export default Modal;
