@@ -7,9 +7,9 @@ export const Test = App;
 //define error and success components and display dinamically
 
 export const FeedbackProviderContext = createContext({
-  setError: (message?: string) => {},
-  setSuccess: (message?: string) => {},
-  setLoading: (state: boolean) => {},
+  setError: (message?: string) => {message},
+  setSuccess: (message?: string) => {message},
+  setLoading: (state: boolean) => {state},
 });
 export default function FeedbackProvider({
   children,

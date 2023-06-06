@@ -1,5 +1,3 @@
+export { default as Carousel } from "./carousel"
+export { default as Modal } from "./modal"
 
-import {Carousel} from "./carousel";
-import { Modal } from "./modal";
-
-export { Carousel, Modal };

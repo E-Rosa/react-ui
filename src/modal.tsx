@@ -31,12 +31,12 @@ export const closeIcon = (
 );
 
 export const ModalContext = createContext({
-  setActive: (b: boolean) => {},
-  setAlignment: (mode: ModalAlignment) => {},
-  setTransparent: (b: boolean) => {},
+  setActive: (b: boolean) => {b},
+  setAlignment: (mode: ModalAlignment) => {mode},
+  setTransparent: (b: boolean) => {b},
 });
 
-export function Modal({
+export default function Modal({
   children,
   setIsActive,
   isActive,

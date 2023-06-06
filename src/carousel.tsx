@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 export const CarouselContext = createContext({
   nextPage: () => {},
   previousPage: () => {},
-  goToPage: (page: number) => {},
+  goToPage: (page: number) => {page},
 });
-export function Carousel({ children }: { children: JSX.Element[] }) {
+export default function Carousel({ children }: { children: JSX.Element[] }) {
 
   const [activeViewKey, setActiveViewKey] = useState(0);
   const paginationButtons = children.map((_, key) => {
