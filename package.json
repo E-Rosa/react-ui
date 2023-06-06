@@ -1,7 +1,7 @@
 {
-  "name": "@eliasrrosa/react-error",
+  "name": "@eliasrrosa/react-ui",
   "private": false,
-  "version": "1.0.2",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -30,12 +30,12 @@
   "main": "src/index.tsx",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/E-Rosa/react-error.git"
+    "url": "git+https://github.com/E-Rosa/react-ui.git"
   },
   "author": "Elias Rosa",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/E-Rosa/react-error/issues"
+    "url": "https://github.com/E-Rosa/react-ui/issues"
   },
-  "homepage": "https://github.com/E-Rosa/react-error#readme"
+  "homepage": "https://github.com/E-Rosa/react-ui#readme"
 }
