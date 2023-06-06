@@ -1,7 +1,7 @@
 {
   "name": "@eliasrrosa/react-ui",
   "private": false,
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -27,7 +27,7 @@
     "vite": "^4.3.9"
   },
   "description": "React client-side error handling facilities.",
-  "main": "src/index.tsx",
+  "main": "dist/assets/index-91d5454a.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/E-Rosa/react-ui.git"
