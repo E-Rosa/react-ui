@@ -20,6 +20,7 @@
   border: 1px var(--primary) solid;
   background-color: white;
   color: var(--primary);
+  font-size: .7em;
 }
 .paginationButtonHighlighted {
   cursor: pointer;
@@ -29,19 +30,10 @@
   border: 1px var(--primary) solid;
   background-color: var(--primary);
   color: white;
+  font-size: .7em;
 }
 .paginationButtonsContainer {
   display: flex;
   align-self: flex-end;
   gap: 0.25rem;
 }
-
-.paginationButton {
-    cursor: pointer;
-    height: 1.5rem;
-    width: 1.5rem;
-    border-radius: 100%;
-    border: 1px var(--primary) solid;
-    background-color: white;
-    color: var(--primary);
-  }

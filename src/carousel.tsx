@@ -16,7 +16,6 @@ export const CarouselContext = createContext({
 export function Carousel({ children }: { children: JSX.Element[] }) {
   const [addedViews, setAddedViews] = useState<JSX.Element[]>();
   const [activeViewKey, setActiveViewKey] = useState(0);
-
   const views = () => {
     const fromChildren = children.map((view, key) => {
       return (
