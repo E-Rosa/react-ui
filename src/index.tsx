@@ -1,7 +1,10 @@
-import { Carousel, CarouselContext } from "./carousel";
-import { Modal, ModalContext } from "./modal";
-import { FeedbackProvider, FeedbackProviderContext } from "./feedbackProvider";
-import "./standards.css"
+import { Carousel, CarouselContext } from "./components/carousel/carousel";
+import { Modal, ModalContext } from "./components/modal/modal";
+import {
+  FeedbackProvider,
+  FeedbackProviderContext,
+} from "./components/feedbackProvider/feedbackProvider";
+import "./standards.css";
 
 export {
   Carousel,
