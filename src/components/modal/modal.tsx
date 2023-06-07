@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import "./modal.css"
 
 export type ModalAlignment = "center" | "bottom-right";
 
@@ -36,7 +37,7 @@ export const ModalContext = createContext({
   setTransparent: (b: boolean) => {b},
 });
 
-export default function Modal({
+export function Modal({
   children,
   setIsActive,
   isActive,
@@ -51,10 +52,12 @@ export default function Modal({
 }) {
   const [alignment, setAlignment] = useState(defaultAlignment);
   const getAlignmentClass = () => {
-    if (alignment == "center")
-      return "justify-center items-center flex-col absolute w-screen h-screen flex inset-0 z-40";
-    if (alignment == "bottom-right")
-      return "justify-end items-end p-3 flex-col absolute flex right-0 bottom-0 z-40 h-min";
+    if (alignment == "center"){
+
+      return "centeredModal";}
+    if (alignment == "bottom-right"){
+
+      return "bottomRightModal";}
   };
   const [isTransparent, setIsTransparent] = useState(defaultTransparent);
   const transparentClass = isTransparent ? "transparent" : "bg-white";
@@ -82,9 +85,9 @@ export default function Modal({
               transition={{ duration: 0.5 }}
               exit={{ opacity: 0 }}
             >
-              <div className="flex flex-col">
+              <div className="modalContentContainer">
                 <button
-                  className="btn-sm flex justify-center items-center self-end btn-ghost btn-circle relative z-10"
+                  className="closeButton"
                   onClick={() => {
                     setIsActive(false);
                   }}
