@@ -16,49 +16,7 @@ export const CarouselContext = createContext({
 export function Carousel({ children }: { children: JSX.Element[] }) {
   const [addedViews, setAddedViews] = useState<JSX.Element[]>();
   const [activeViewKey, setActiveViewKey] = useState(0);
-  const paginationButtons = () => {
-    const fromChildren = children.map((_, key) => {
-      const highlighted = activeViewKey == key;
-      return (
-        <button
-          className={
-            highlighted
-              ? "paginationButton paginationButtonHighlighted"
-              : "paginationButton"
-          }
-          key={key}
-          onClick={() => {
-            setActiveViewKey(key);
-          }}
-        >
-          {key + 1}
-        </button>
-      );
-    });
-    if (addedViews) {
-      const fromAddedViews = addedViews.map((_, key) => {
-        const newKey = key + children.length;
-        const highlighted = activeViewKey == newKey;
-        return (
-          <button
-            className={
-              highlighted
-                ? "paginationButton paginationButtonHighlighted"
-                : "paginationButton"
-            }
-            key={newKey}
-            onClick={() => {
-              setActiveViewKey(newKey);
-            }}
-          >
-            {newKey + 1}
-          </button>
-        );
-      });
-      return fromChildren.concat(fromAddedViews);
-    }
-    return fromChildren;
-  };
+
   const views = () => {
     const fromChildren = children.map((view, key) => {
       return (
@@ -92,6 +50,49 @@ export function Carousel({ children }: { children: JSX.Element[] }) {
               </motion.div>
             )}
           </>
+        );
+      });
+      return fromChildren.concat(fromAddedViews);
+    }
+    return fromChildren;
+  };
+  const paginationButtons = () => {
+    const fromChildren = children.map((_, key) => {
+      const highlighted = activeViewKey == key;
+      return (
+        <button
+          className={
+            highlighted
+              ? "paginationButtonHighlighted"
+              : "paginationButton"
+          }
+          key={key}
+          onClick={() => {
+            setActiveViewKey(key);
+          }}
+        >
+          {key + 1}
+        </button>
+      );
+    });
+    if (addedViews) {
+      const fromAddedViews = addedViews.map((_, key) => {
+        const newKey = key + children.length;
+        const highlighted = activeViewKey == newKey;
+        return (
+          <button
+            className={
+              highlighted
+                ? "paginationButtonHighlighted"
+                : "paginationButton"
+            }
+            key={newKey}
+            onClick={() => {
+              setActiveViewKey(newKey);
+            }}
+          >
+            {newKey + 1}
+          </button>
         );
       });
       return fromChildren.concat(fromAddedViews);
