@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import "./feedbackProvider.css"
 //responsibility:
 //provide setError and setSuccess context to its children
 //define error and success components and display dinamically
@@ -45,13 +46,16 @@ export function FeedbackProvider({
       <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
     </svg>
   );
+  const loader = (
+    <div className="loader"><div></div><div></div><div></div><div></div></div>
+  )
 
   return (
     <>
       <AnimatePresence>
         {isErrorActive && (
           <motion.div
-            className="alert alert-error shadow-lg max-w-max flex-row flex items-center justify-center fixed inset-0 flex-wrap max-h-max z-50"
+            className="floatingContainer errorContainer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -67,7 +71,7 @@ export function FeedbackProvider({
       <AnimatePresence>
         {isSuccessActive && (
           <motion.div
-            className="alert alert-success shadow-lg flex-row max-w-max flex items-center justify-center fixed inset-0 flex-wrap max-h-max z-50"
+            className="floatingContainer successContainer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -87,9 +91,9 @@ export function FeedbackProvider({
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             exit={{ opacity: 0 }}
-            className="alert shadow-lg flex-row max-w-max flex items-center justify-center fixed inset-0 flex-wrap max-h-max z-50"
+            className="floatingContainer loadingContainer"
           >
-            <div className=" w-5 h-5 border-8 border-accent rounded-full animate-spin p-3 border-t-white"></div>
+            {loader}
           </motion.div>
         )}
       </AnimatePresence>

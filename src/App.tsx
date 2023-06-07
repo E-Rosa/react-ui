@@ -1,23 +1,15 @@
-import {Carousel} from "./carousel";
-import CarouselItem from "./carouselItem";
 import "./App.css";
-import { Modal } from ".";
+import { FeedbackProvider } from "./components/feedbackProvider/feedbackProvider";
 import { useState } from "react";
+import MyComponent from "./components/feedbackProvider/feedbackConsumer";
 
 function App() {
   const [isActive, setIsActive] = useState(true)
   return (
     <div className="halfscreen">
-      <Modal isActive={isActive} setIsActive={setIsActive} defaultAlignment="center">
-      <Carousel>
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <CarouselItem />
-        <span>5</span>
-      </Carousel>
-      </Modal>
-      <span>Content outside modal</span>
+      <FeedbackProvider>
+        <MyComponent />
+      </FeedbackProvider>
     </div>
 
   );
