@@ -1,0 +1,42 @@
+.carousel {
+  display: flex;
+  padding-bottom: 1rem;
+  padding: 1.25rem;
+  background-color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.75rem;
+  border-width: 1px;
+  border-color: var(--primary);
+  border-style: solid;
+  gap: 0.5rem;
+}
+.paginationButton {
+  cursor: pointer;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 100%;
+  border: 1px var(--primary) solid;
+  background-color: white;
+  color: var(--primary);
+}
+.paginationButtonHighlighted {
+  background-color: var(--primary);
+  color: var(--tertiary);
+}
+.paginationButtonsContainer {
+  display: flex;
+  align-self: flex-end;
+  gap: 0.25rem;
+}
+
+.paginationButton {
+    cursor: pointer;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 100%;
+    border: 1px var(--primary) solid;
+    background-color: white;
+    color: var(--primary);
+  }

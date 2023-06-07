@@ -1,7 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import App from "./App";
-export const Test = App;
 //responsibility:
 //provide setError and setSuccess context to its children
 //define error and success components and display dinamically
@@ -11,7 +9,7 @@ export const FeedbackProviderContext = createContext({
   setSuccess: (message?: string) => {message},
   setLoading: (state: boolean) => {state},
 });
-export default function FeedbackProvider({
+export function FeedbackProvider({
   children,
 }: {
   children: ReactNode;
