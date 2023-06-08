@@ -37,9 +37,37 @@ export function Child1(){
 }
 ```
 From here, you can call:
-  ``carouselContext.nextPage()``, 
-  ``carouselContext.previousPage()``, 
-  ``carouselContext.goToPage(page)`` and 
-  ``carouselContext.addPage()`` 
-to manipulate the ``<Carousel />`` from within ``{children}``
+  + ``carouselContext.nextPage()``	, 
+  + ``carouselContext.previousPage()``, 
+  + ``carouselContext.goToPage(page)`` and 
+  + ``carouselContext.addPage()`` 
 
+to manipulate the ``<Carousel />`` from within ``{children}``.
+
+## ``<FeedbackProvider>``
+A context for displaying **error**, **success** and **loading** states to the user.
+Wrap any elements as ``{children}`` of the ``<FeedbackProvider>`` and they will gain access to the ``FeedbackContext`` to be consumed using ``useContext()``, from which the methods: 
++ ``setError()``
++ ``setSuccess()``
++ ``setLoading()``
+
+will be available, as in:
+
+```javascript
+import { FeedbackProvider, FeedbackContext } from "@eliasrrosa/react-ui"
+
+export function Child1(){
+  const feedbackContext = useContext(FeedbackContext);
+  return (
+    <button onClick={()=>{feedbackContext.setError("oops.")}}>setError</button>
+  )
+}
+
+export function App(){
+  return (
+    <FeedbackProvider>
+      <Child1 />
+    </FeedbackProvider>
+  )
+}
+```
