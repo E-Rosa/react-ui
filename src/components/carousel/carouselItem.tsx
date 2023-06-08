@@ -6,7 +6,7 @@ function CarouselItem() {
   return (
     <>
     <div>CarouselItem</div>
-    <button onClick={()=>{carouselContext.addPage(<span>4</span>); carouselContext.goToPage(6)}}>Add item</button>
+    <button onClick={()=>{carouselContext.addPage(<span>added page</span>);}}>Add item</button>
     </>
   )
 

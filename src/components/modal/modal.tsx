@@ -69,7 +69,9 @@ export function Modal({
             setIsActive(b);
           },
           setAlignment: (mode: ModalAlignment) => {
+            setIsActive(false)
             setAlignment(mode);
+            setTimeout(()=>{setIsActive(true)}, 300)
           },
           setTransparent: (b: boolean) => {
             setIsTransparent(b);

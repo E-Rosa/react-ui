@@ -1,8 +1,13 @@
 # react-ui
 React easy to use custom components.
 
+# Introduction
+The components section below will illustrate how to use each of the UI elements provided by @eliasrrosa/react-ui. To see the components working, access: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm]
+
 # components
 ## ```<Carousel />```
+See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
+
 A carousel that receives ``{children}`` and renders them as in a paginated fashion. For each ``{children}`` passed there will be one extra page in the Carousel. As in:
 ```javascript
 import { Carousel } from "@eliasrrosa/react-ui"
@@ -26,6 +31,8 @@ export default function App(){
 This would be enough to have a basic carousel that can be navigated using the pagination buttons. However, if you want to manipulate the pages of the Carousel from within its ``{children}``, you can use the following:
 
 ### ``CarouselContext``
+See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
+
 The ``{children}`` of ``<Carousel />`` can consume ``CarouselContext`` through ``useContext()`` as in:
 
 ```javascript
@@ -46,6 +53,8 @@ From here, you can call:
 to manipulate the ``<Carousel />`` from within ``{children}``.
 
 ## ``<FeedbackProvider>``
+See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
+
 A context for displaying **error**, **success** and **loading** states to the user.
 Wrap any elements as ``{children}`` of the ``<FeedbackProvider>`` and they will gain access to the ``FeedbackContext`` to be consumed using ``useContext()``, from which the methods: 
 + ``setError()``
@@ -75,6 +84,8 @@ export function App(){
 ```
 
 ## ``<Modal>``
+See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
+
 A modal with: 
 + two options for position
 + opt-in background transparency

@@ -4,3 +4,12 @@
     --tertiary: #dae8ee;
 }
 
+button{
+    border-radius:1em;
+    border: 1px solid black;
+}
+.flex{
+    display:flex;
+    gap:5px;
+}
+
