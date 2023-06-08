@@ -72,7 +72,7 @@ export function App(){
 }
 ```
 
-## ```<Modal>``
+## ``<Modal>``
 A modal with: 
 + two options for position
 + opt-in background transparency
@@ -116,3 +116,7 @@ export function App(){
   )
 }
 ```
+``ModalContext`` gives you:
++ ``setActive()``
++ ``setAlignment()``
++ ``setTransparent()``
