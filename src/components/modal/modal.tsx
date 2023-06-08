@@ -29,7 +29,7 @@ export const closeIcon = (
       fill="currentColor"
     />
   </svg>
-);
+  );
 
 export const ModalContext = createContext({
   setActive: (b: boolean) => {b},

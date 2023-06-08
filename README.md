@@ -80,7 +80,7 @@ A modal with:
 + opt-in background transparency
 + a context that allows the modal's ``{children}``to control it.
 
-``<Modal>`` requires two props, both derived from ``useState()``. The most basic iteration of a ``<Modal>```is as follows:
+``<Modal>`` requires two props, both derived from ``useState()``. The most basic iteration of a ``<Modal>`` is as follows:
 
 ```javascript
 import { Modal } from "@eliasrrosa/react-ui"
@@ -115,7 +115,12 @@ export function Child1(){
 
 export function App(){
   return (
-    <Modal isActive={isActive} setIsActive={setIsActive}>
+    <Modal 
+      isActive={isActive} 
+      setIsActive={setIsActive}
+      defaultAlignment={"bottom-right"}
+      defaultTransparent={true}
+    >
       <Child1 />
     </Modal>
   )
