@@ -71,3 +71,48 @@ export function App(){
   )
 }
 ```
+
+## ```<Modal>``
+A modal with: 
++ two options for position
++ opt-in background transparency
++ a context that allows its children to control it
+
+``<Modal>`` requires two props, both derived from ``useState()``. The most basic iteration of a ``<Modal>```is as follows:
+
+```javascript
+import { Modal } from "@eliasrrosa/react-ui"
+
+export function App(){
+  return (
+    <Modal isActive={isActive} setIsActive={setIsActive}>
+      <p>Some content</p>
+    </Modal>
+  )
+}
+```
+that would display a modal taking up the whole screen, with its content centered and a white background, with a 'close' button near the content. 
+
+However, you can unlock the full potential of ``<Modal>`` by:
++ adjusting its default props
++ using ``ModalContext``
+
+as in:
+```javascript
+import { Modal, ModalContext } from "@eliasrrosa/react-ui"
+
+export function Child1(){
+  const modalContext = useState(ModalContext);
+  return (
+    <button onClick={()=>{modalContext.setActive(false)}}>Close modal from child</button>
+  )
+}
+
+export function App(){
+  return (
+    <Modal isActive={isActive} setIsActive={setIsActive}>
+      <Child1 />
+    </Modal>
+  )
+}
+```
