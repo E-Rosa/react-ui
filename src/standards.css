@@ -4,12 +4,12 @@
     --tertiary: #dae8ee;
 }
 
-button{
+.cButton{
     border-radius:1em;
     border: 1px solid black;
 }
-.flex{
+.cflex{
     display:flex;
-    gap:5px;
+    gap: 5px
 }
 

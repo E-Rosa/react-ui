@@ -59,8 +59,8 @@ export function Carousel({ children }: { children: JSX.Element[] }) {
     const fromChildren = children.map((_, key) => {
       const highlighted = activeViewKey == key;
       return (
-        <button
-          className={
+       <button
+          className={"cButton " + 
             highlighted
               ? "paginationButtonHighlighted"
               : "paginationButton"
@@ -79,8 +79,9 @@ export function Carousel({ children }: { children: JSX.Element[] }) {
         const newKey = key + children.length;
         const highlighted = activeViewKey == newKey;
         return (
-          <button
+         <button 
             className={
+              "cButton " + 
               highlighted
                 ? "paginationButtonHighlighted"
                 : "paginationButton"

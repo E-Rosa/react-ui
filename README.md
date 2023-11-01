@@ -70,7 +70,7 @@ import { useContext } from "react";
 export function Child1(){
   const feedbackContext = useContext(FeedbackContext);
   return (
-    <button onClick={()=>{feedbackContext.setError("oops.")}}>setError</button>
+   <button className="cButton" onClick={()=>{feedbackContext.setError("oops.")}}>setError</button>
   )
 }
 
@@ -120,7 +120,7 @@ import { useContext } from "react";
 export function Child1(){
   const modalContext = useContext(ModalContext);
   return (
-    <button onClick={()=>{modalContext.setActive(false)}}>Close modal from child</button>
+   <button className="cButton" onClick={()=>{modalContext.setActive(false)}}>Close modal from child</button>
   )
 }
 

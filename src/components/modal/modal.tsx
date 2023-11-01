@@ -88,8 +88,8 @@ export function Modal({
               exit={{ opacity: 0 }}
             >
               <div className="modalContentContainer">
-                <button
-                  className="closeButton"
+               <button 
+                  className={"cButton " + "closeButton"}
                   onClick={() => {
                     setIsActive(false);
                   }}
