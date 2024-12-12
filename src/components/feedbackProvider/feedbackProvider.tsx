@@ -14,8 +14,8 @@ export const FeedbackProviderContext = createContext({
   setSuccess: (
     message?: string,
     opts?: {
-      isPermanent?: boolean,
-      durationMilliseconds?: number
+      isPermanent?: boolean;
+      durationMilliseconds?: number;
     }
   ) => {
     message;
@@ -30,7 +30,11 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
   const [isLoadingActive, setIsLoadingActive] = useState(false);
   const [feedbackMessage, setfeedbackMessage] = useState("");
   const [successMessages, setSuccessMessages] = useState<
-    { id: string; message?: string; opts?: { isPermanent?: boolean, durationMilliseconds?: number } }[]
+    {
+      id: string;
+      message?: string;
+      opts?: { isPermanent?: boolean; durationMilliseconds?: number };
+    }[]
   >([]);
   const errorIcon = (
     <svg
@@ -81,33 +85,37 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
       </AnimatePresence>
       <AnimatePresence>
         <motion.div className="floatingParentContainer">
-          {successMessages.map((successMessage, index) => {
-            return (
-              <motion.div
-                className="successContainer"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                exit={{ opacity: 0 }}
-                key={index}
-              >
-                {successIcon}
-                {successMessage.message != "" && (
-                  <span className="break-all">{successMessage.message}</span>
-                )}
-                {successMessage.opts?.isPermanent && <div
-                  className="closeButtonContainer"
-                  onClick={() => {
-                    setSuccessMessages(
-                      successMessages.filter((_, i) => i != index)
-                    );
-                  }}
+          <AnimatePresence>
+            {successMessages.map((successMessage, index) => {
+              return (
+                <motion.div
+                  className="successContainer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0 }}
+                  key={index}
                 >
-                  {closeIcon}
-                </div>}
-              </motion.div>
-            );
-          })}
+                  {successIcon}
+                  {successMessage.message != "" && (
+                    <span className="break-all">{successMessage.message}</span>
+                  )}
+                  {successMessage.opts?.isPermanent && (
+                    <div
+                      className="closeButtonContainer"
+                      onClick={() => {
+                        setSuccessMessages(
+                          successMessages.filter((_, i) => i != index)
+                        );
+                      }}
+                    >
+                      {closeIcon}
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
         </motion.div>
       </AnimatePresence>
       <AnimatePresence>
@@ -135,8 +143,8 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
           setSuccess: (
             message?: string,
             opts?: {
-              isPermanent?: boolean,
-              durationMilliseconds?: number,
+              isPermanent?: boolean;
+              durationMilliseconds?: number;
             }
           ) => {
             const id = v4();
@@ -144,13 +152,16 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
               return [...prevSuccessMessages, { id, message, opts }];
             });
             if (!opts?.isPermanent) {
-              setTimeout(() => {
-                setSuccessMessages((prevSuccessMessages) => {
-                  return prevSuccessMessages.filter(
-                    (successMessage) => successMessage.id != id
-                  );
-                });
-              }, opts?.durationMilliseconds ? opts.durationMilliseconds : 4000);
+              setTimeout(
+                () => {
+                  setSuccessMessages((prevSuccessMessages) => {
+                    return prevSuccessMessages.filter(
+                      (successMessage) => successMessage.id != id
+                    );
+                  });
+                },
+                opts?.durationMilliseconds ? opts.durationMilliseconds : 4000
+              );
             }
           },
           setLoading: (state: boolean) => {
