@@ -1,7 +1,7 @@
 {
   "name": "@eliasrrosa/react-ui",
   "private": false,
-  "version": "1.2.0",
+  "version": "1.2.2",
   "type": "module",
   "scripts": {
     "dev": "vite",

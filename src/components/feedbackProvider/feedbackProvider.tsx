@@ -14,7 +14,8 @@ export const FeedbackProviderContext = createContext({
   setSuccess: (
     message?: string,
     opts?: {
-      isPermanent?: boolean;
+      isPermanent?: boolean,
+      durationMilliseconds?: number
     }
   ) => {
     message;
@@ -29,7 +30,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
   const [isLoadingActive, setIsLoadingActive] = useState(false);
   const [feedbackMessage, setfeedbackMessage] = useState("");
   const [successMessages, setSuccessMessages] = useState<
-    { id: string; message?: string; opts?: { isPermanent?: boolean } }[]
+    { id: string; message?: string; opts?: { isPermanent?: boolean, durationMilliseconds?: number } }[]
   >([]);
   const errorIcon = (
     <svg
@@ -129,12 +130,13 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
             setIsErrorActive(true);
             setTimeout(() => {
               setIsErrorActive(false);
-            }, 2000);
+            }, 4000);
           },
           setSuccess: (
             message?: string,
             opts?: {
-              isPermanent?: boolean;
+              isPermanent?: boolean,
+              durationMilliseconds?: number,
             }
           ) => {
             const id = v4();
@@ -148,7 +150,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
                     (successMessage) => successMessage.id != id
                   );
                 });
-              }, 2000);
+              }, opts?.durationMilliseconds ? opts.durationMilliseconds : 4000);
             }
           },
           setLoading: (state: boolean) => {
