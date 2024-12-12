@@ -23,17 +23,30 @@ function Consumer(_: ConsumerProps) {
       </button>
       <button
         onClick={() => {
-          feedback.setSuccess("success!", {durationMilliseconds: 1000});
+          feedback.setSuccess("success!", { durationMilliseconds: 1000 });
         }}
       >
         1 second success
       </button>
       <button
         onClick={() => {
-          feedback.setSuccess("success!", {durationMilliseconds: 10000});
+          feedback.setSuccess("success!", { durationMilliseconds: 10000 });
         }}
       >
         10 second success
+      </button>
+      <button
+        onClick={() => {
+          feedback.setSuccess(
+            <div className="cflexColumn">
+              <span className="cButton">custom jsx</span>
+              <span className="cButton">custom jsx</span>
+            </div>,
+            { isPermanent: true }
+          );
+        }}
+      >
+        JSX success
       </button>
     </div>
   );

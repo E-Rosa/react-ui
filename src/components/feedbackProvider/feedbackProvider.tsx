@@ -12,7 +12,7 @@ export const FeedbackProviderContext = createContext({
     message;
   },
   setSuccess: (
-    message?: string,
+    message?: string | JSX.Element,
     opts?: {
       isPermanent?: boolean;
       durationMilliseconds?: number;
@@ -32,7 +32,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
   const [successMessages, setSuccessMessages] = useState<
     {
       id: string;
-      message?: string;
+      message?: string | JSX.Element;
       opts?: { isPermanent?: boolean; durationMilliseconds?: number };
     }[]
   >([]);
@@ -98,7 +98,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
                 >
                   {successIcon}
                   {successMessage.message != "" && (
-                    <span className="break-all">{successMessage.message}</span>
+                    <div className="break-all">{successMessage.message}</div>
                   )}
                   {successMessage.opts?.isPermanent && (
                     <div
@@ -141,7 +141,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
             }, 4000);
           },
           setSuccess: (
-            message?: string,
+            message?: string | JSX.Element,
             opts?: {
               isPermanent?: boolean;
               durationMilliseconds?: number;
