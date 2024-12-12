@@ -1,13 +1,14 @@
-import { FeedbackProvider } from ".";
+import { FeedbackProvider } from "./components/feedbackProvider/feedbackProvider";
 import "./App.css";
+import Consumer from "./Consumer";
 import "./standards.css";
-import { createContext, useState } from "react";
 
 function App() {
-  const [isActive, setIsActive] = useState(true);
-  const feedbackContext = createContext
   return (
     <div className="halfscreen">
+      <FeedbackProvider>
+        <Consumer />
+      </FeedbackProvider>
     </div>
   );
 }
