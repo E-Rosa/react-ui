@@ -7,6 +7,9 @@ function Consumer(_: ConsumerProps) {
   const feedback = useContext(FeedbackProviderContext);
   return (
     <div>
+      <button onClick={()=>{
+        feedback.setLoading(true);
+      }}>Loading</button>
       <button
         onClick={() => {
           feedback.setSuccess("permanent success", { isPermanent: true });
