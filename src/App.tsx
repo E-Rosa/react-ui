@@ -1,13 +1,17 @@
 import { FeedbackProvider } from "./components/feedbackProvider/feedbackProvider";
 import "./App.css";
-import Consumer from "./Consumer";
+import FeedbackConsumer from "./Consumer";
 import "./standards.css";
+import Demo from "./components/demo/Demo";
+import "./index.css"
+
 
 function App() {
   return (
     <div className="halfscreen">
       <FeedbackProvider>
-        <Consumer />
+        <FeedbackConsumer />
+        <Demo />
       </FeedbackProvider>
     </div>
   );

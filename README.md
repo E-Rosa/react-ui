@@ -141,3 +141,7 @@ export function App(){
 + ``setActive()``
 + ``setAlignment()``
 + ``setTransparent()``
+
+## Version Updates
+
+From version 2.0.0 onwards, <Modal /> has completely changed. It implements a new API, does not include context nor receives state setters as props. This solves a variety of problems with it.

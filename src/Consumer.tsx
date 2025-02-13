@@ -3,7 +3,7 @@ import { FeedbackProviderContext } from "./components/feedbackProvider/feedbackP
 
 interface ConsumerProps {}
 
-function Consumer(_: ConsumerProps) {
+function FeedbackConsumer(_: ConsumerProps) {
   const feedback = useContext(FeedbackProviderContext);
   return (
     <div>
@@ -55,4 +55,4 @@ function Consumer(_: ConsumerProps) {
   );
 }
 
-export default Consumer;
+export default FeedbackConsumer;

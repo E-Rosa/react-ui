@@ -1,14 +1,69 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import "./modal.css"
+import { useEffect, useRef } from "react";
 
-export type ModalAlignment = "center" | "bottom-right";
+export interface ModalProps {
+  children: JSX.Element;
+  onOutsideClick?: (ev?: React.MouseEvent<HTMLDivElement>) => void;
+  hideCloseButton?: boolean;
+  containerClassName?: string;
+  className?: string;
+  closeButtonClassName?: string;
+}
+
+function Modal(props: ModalProps) {
+  const childDivRef = useRef<HTMLDivElement>(null);
+  const containerDivRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (childDivRef.current) {
+      childDivRef.current.focus();
+      childDivRef.current.scrollIntoView();
+    } else {
+      if (containerDivRef.current) {
+        containerDivRef.current.focus();
+        containerDivRef.current.scrollIntoView();
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // Disable body scrolling when the component mounts
+    document.body.style.overflow = "hidden";
+
+    // Enable body scrolling when the component unmounts
+    return () => {
+      document.body.style.overflow = "visible";
+    };
+  }, []);
+  return (
+    <div
+      ref={containerDivRef}
+      onClick={(ev) => {
+        if (props.onOutsideClick) {
+          const clickedItem = ev.target;
+          const modalContainer = ev.currentTarget;
+
+          if (clickedItem == modalContainer) props.onOutsideClick(ev);
+        }
+      }}
+      className={`hide-scrollbar overflow-scroll h-screen fixed inset-0 flex flex-col items-center w-screen bg-black bg-opacity-[95%] z-[49] ${props.className}`}
+    >
+      <div className={props.containerClassName}>
+        {!props.hideCloseButton && (
+          <button
+            onClick={() => {
+              props.onOutsideClick?.();
+            }}
+            className={props.closeButtonClassName || "self-end"}
+          >
+            {closeIcon}
+          </button>
+        )}
+        {props.children}
+      </div>
+    </div>
+  );
+}
+
+export default Modal;
 
 export const closeIcon = (
   <svg
@@ -29,79 +84,4 @@ export const closeIcon = (
       fill="currentColor"
     />
   </svg>
-  );
-
-export const ModalContext = createContext({
-  setActive: (b: boolean) => {b},
-  setAlignment: (mode: ModalAlignment) => {mode},
-  setTransparent: (b: boolean) => {b},
-});
-
-export function Modal({
-  children,
-  setIsActive,
-  isActive,
-  defaultAlignment = "center",
-  defaultTransparent = false,
-}: {
-  children: ReactNode;
-  setIsActive: Dispatch<SetStateAction<boolean>>;
-  isActive: boolean;
-  defaultAlignment?: ModalAlignment;
-  defaultTransparent?: boolean;
-}) {
-  const [alignment, setAlignment] = useState(defaultAlignment);
-  const getAlignmentClass = () => {
-    if (alignment == "center"){
-
-      return "centeredModal";}
-    if (alignment == "bottom-right"){
-
-      return "bottomRightModal";}
-  };
-  const [isTransparent, setIsTransparent] = useState(defaultTransparent);
-  const transparentClass = isTransparent ? "transparent" : "bg-white";
-  return (
-    <>
-      <ModalContext.Provider
-        value={{
-          setActive: (b: boolean) => {
-            setIsActive(b);
-          },
-          setAlignment: (mode: ModalAlignment) => {
-            setIsActive(false)
-            setAlignment(mode);
-            setTimeout(()=>{setIsActive(true)}, 300)
-          },
-          setTransparent: (b: boolean) => {
-            setIsTransparent(b);
-          },
-        }}
-      >
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              className={getAlignmentClass() + " " + transparentClass}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="modalContentContainer">
-               <button 
-                  className={"cButton " + "closeButton"}
-                  onClick={() => {
-                    setIsActive(false);
-                  }}
-                >
-                  {closeIcon}
-                </button>
-                {children}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </ModalContext.Provider>
-    </>
-  );
-}
+);
