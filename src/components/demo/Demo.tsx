@@ -1,5 +1,10 @@
 import { useState } from "react";
 import Modal from "../modal/modal";
+import {
+  emitError,
+  emitLoading,
+  emitSuccess,
+} from "../feedbackProvider/feedbackProvider";
 
 interface DemoProps {}
 
@@ -29,6 +34,44 @@ function Demo(_: DemoProps) {
           </div>
         </Modal>
       )}
+      <div className="flex gap-2 flex-wrap">
+        <button
+          className="btn"
+          onClick={() => {
+            emitSuccess({
+              message: "Success!",
+            });
+          }}
+        >
+          Emit success
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            emitError({
+              message: "Error!",
+            });
+          }}
+        >
+          Emit error
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            emitLoading({ isLoading: true });
+          }}
+        >
+          Emit loading true
+        </button>
+        <button
+          className="btn"
+          onClick={() => {
+            emitLoading({ isLoading: false });
+          }}
+        >
+          Emit loading false
+        </button>
+      </div>
     </>
   );
 }

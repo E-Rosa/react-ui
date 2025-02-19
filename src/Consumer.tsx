@@ -7,38 +7,36 @@ function FeedbackConsumer(_: ConsumerProps) {
   const feedback = useContext(FeedbackProviderContext);
   return (
     <div>
-      <button onClick={()=>{
-        feedback.setLoading(true);
-      }}>Loading</button>
-      <button
+  
+      <button className="btn"
         onClick={() => {
           feedback.setSuccess("permanent success", { isPermanent: true });
         }}
       >
         permanent success
       </button>
-      <button
+      <button className="btn"
         onClick={() => {
           feedback.setSuccess("temporary success");
         }}
       >
         temporary success
       </button>
-      <button
+      <button className="btn" 
         onClick={() => {
           feedback.setSuccess("success!", { durationMilliseconds: 1000 });
         }}
       >
         1 second success
       </button>
-      <button
+      <button className="btn"
         onClick={() => {
           feedback.setSuccess("success!", { durationMilliseconds: 10000 });
         }}
       >
         10 second success
       </button>
-      <button
+      <button className="btn"
         onClick={() => {
           feedback.setSuccess(
             <div className="cflexColumn">

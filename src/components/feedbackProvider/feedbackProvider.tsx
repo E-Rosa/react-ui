@@ -1,18 +1,67 @@
-import { ReactNode, createContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import "./feedbackProvider.css";
 import { closeIcon } from "../modal/modal";
 import { v4 } from "uuid";
-//responsibility:
-//provide setError and setSuccess context to its children
-//define error and success components and display dinamically
+import { FeedbackSuccessEventPayload } from "../../observers/events/FeedbackEvents";
+import { EventEmitter } from "../../observers/emitters/EventEmitter";
+import { errorIcon, successIcon } from "../../assets/icons";
+
+export type SuccessEvent = {
+  message?: string | JSX.Element;
+  opts?: {
+    isPermanent?: boolean;
+    durationMilliseconds?: number;
+  };
+};
+
+export type ErrorEvent = {
+  message?: string;
+};
+
+export type LoadingEvent = {
+  isLoading: boolean;
+};
+
+const successEventEmitter = new EventEmitter<SuccessEvent>();
+const errorEventEmitter = new EventEmitter<ErrorEvent>();
+const loadingEventEmitter = new EventEmitter<LoadingEvent>();
+
+/**
+ * Emits a success event. Listeners will respond right away if they exist.
+ */
+export const emitSuccess = (payload: SuccessEvent) => {
+  successEventEmitter.emit({
+    payload: payload,
+  });
+};
+
+/**
+ * Emits an error event. Listeners will respond right away if they exist.
+ */
+export const emitError = (payload: ErrorEvent) => {
+  errorEventEmitter.emit({ payload: payload });
+};
+
+/**
+ * Emits a loading event. Listeners will respond right away if they exist.
+ */
+export const emitLoading = (payload: LoadingEvent) => {
+  loadingEventEmitter.emit({ payload: payload });
+};
 
 export const FeedbackProviderContext = createContext({
   setError: (message?: string) => {
     message;
   },
   setSuccess: (
-    message?: string | JSX.Element,
+    message: string | JSX.Element,
     opts?: {
       isPermanent?: boolean;
       durationMilliseconds?: number;
@@ -25,44 +74,100 @@ export const FeedbackProviderContext = createContext({
     state;
   },
 });
-export function FeedbackProvider({ children }: { children: ReactNode }) {
-  const [isErrorActive, setIsErrorActive] = useState(false);
-  const [isLoadingActive, setIsLoadingActive] = useState(false);
-  const [feedbackMessage, setfeedbackMessage] = useState("");
-  const [successMessages, setSuccessMessages] = useState<
-    {
-      id: string;
-      message?: string | JSX.Element;
-      opts?: { isPermanent?: boolean; durationMilliseconds?: number };
-    }[]
-  >([]);
-  const errorIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
-      className="bi bi-exclamation-circle"
-      viewBox="0 0 16 16"
-    >
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-      <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
-    </svg>
-  );
 
-  const successIcon = (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="currentColor"
-      className="bi bi-check-circle"
-      viewBox="0 0 16 16"
-    >
-      <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-      <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-    </svg>
-  );
+export function useFeedback() {
+  return useContext(FeedbackProviderContext);
+}
+
+export function FeedbackProvider({ children }: { children: ReactNode }) {
+  type ErrorMessage = {
+    message: string;
+    id: string;
+  };
+  const [errorMessages, setErrorMessages] = useState<ErrorMessage[]>([]);
+  const [isLoadingActive, setIsLoadingActive] = useState(false);
+  const [successMessages, setSuccessMessages] =
+    useState<FeedbackSuccessEventPayload>([]);
+
+  useEffect(() => {
+    const errorEmitterId = errorEventEmitter.addListener({
+      callback: (payload) => {
+        setError(payload.message);
+      },
+    });
+
+    const successEmitterId = successEventEmitter.addListener({
+      callback: (payload) => {
+        setSuccess(
+          payload.message ? payload.message : "Success!",
+          payload.opts
+            ? payload.opts
+            : {
+                durationMilliseconds: 4000,
+                isPermanent: false,
+              }
+        );
+      },
+    });
+
+    const loadingEmitterId = loadingEventEmitter.addListener({
+      callback: (payload) => {
+        setLoading(payload.isLoading);
+      },
+    });
+    return () => {
+      errorEventEmitter.removeListener(errorEmitterId);
+      successEventEmitter.removeListener(successEmitterId);
+      loadingEventEmitter.removeListener(loadingEmitterId);
+    };
+  }, []);
+
+  const setSuccess = (
+    message: string | JSX.Element,
+    opts?: {
+      isPermanent?: boolean;
+      durationMilliseconds?: number;
+    }
+  ) => {
+    const id = v4();
+    setSuccessMessages((prevSuccessMessages) => {
+      return [...prevSuccessMessages, { id: id, message: message, opts: opts }];
+    });
+    if (!opts?.isPermanent) {
+      setTimeout(
+        () => {
+          setSuccessMessages((prevSuccessMessages) => {
+            return prevSuccessMessages.filter(
+              (successMessage) => successMessage.id != id
+            );
+          });
+        },
+        opts?.durationMilliseconds ? opts.durationMilliseconds : 4000
+      );
+    }
+  };
+  const setError = (message?: string) => {
+    const id = v4();
+
+    setErrorMessages((prevMessages) => {
+      return message
+        ? [...prevMessages, { message: message, id: id }]
+        : [...prevMessages, { message: "Error!", id: id }];
+    });
+
+    setTimeout(() => {
+      setErrorMessages((prevMessages) => {
+        return prevMessages.filter((prevMessage) => {
+          return prevMessage.id != id;
+        });
+      });
+    }, 4000);
+  };
+
+  const setLoading = (state: boolean) => {
+    setIsLoadingActive(state);
+  };
+
   const loader = (
     <div className="loader">
       <div></div>
@@ -73,29 +178,31 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <AnimatePresence>
-        {isErrorActive && (
-          <motion.div
-            className="floatingContainer errorContainer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            exit={{ opacity: 0 }}
-          >
-            {errorIcon}
-            {feedbackMessage != "" && (
-              <span className="break-all">{feedbackMessage}</span>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        <motion.div className="floatingParentContainer">
+      <motion.div className="floatingParentContainer">
+        <AnimatePresence>
+          {errorMessages.length > 0 &&
+            errorMessages.map((message, key) => {
+              return (
+                <motion.div
+                  className="floatingChildContainer errorContainer"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                  exit={{ opacity: 0 }}
+                  key={key}
+                >
+                  {errorIcon}
+                  <span className="break-all">{message.message}</span>
+                </motion.div>
+              );
+            })}
+        </AnimatePresence>
+        <AnimatePresence>
           <AnimatePresence>
             {successMessages.map((successMessage, index) => {
               return (
                 <motion.div
-                  className="successContainer"
+                  className="floatingChildContainer successContainer"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
@@ -122,56 +229,38 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
               );
             })}
           </AnimatePresence>
-        </motion.div>
-      </AnimatePresence>
-      <AnimatePresence>
-        {isLoadingActive && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            exit={{ opacity: 0 }}
-            className="floatingContainer loadingContainer"
-          >
-            {loader}
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </AnimatePresence>
+        <AnimatePresence>
+          {isLoadingActive && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              exit={{ opacity: 0 }}
+              className="floatingChildContainer loadingContainer"
+            >
+              {loader}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+
       <FeedbackProviderContext.Provider
         value={{
           setError: (message?: string) => {
-            message ? setfeedbackMessage(message) : setfeedbackMessage("");
-            setIsErrorActive(true);
-            setTimeout(() => {
-              setIsErrorActive(false);
-            }, 4000);
+            setError(message);
           },
           setSuccess: (
-            message?: string | JSX.Element,
+            message: string | JSX.Element,
             opts?: {
               isPermanent?: boolean;
               durationMilliseconds?: number;
             }
           ) => {
-            const id = v4();
-            setSuccessMessages((prevSuccessMessages) => {
-              return [...prevSuccessMessages, { id, message, opts }];
-            });
-            if (!opts?.isPermanent) {
-              setTimeout(
-                () => {
-                  setSuccessMessages((prevSuccessMessages) => {
-                    return prevSuccessMessages.filter(
-                      (successMessage) => successMessage.id != id
-                    );
-                  });
-                },
-                opts?.durationMilliseconds ? opts.durationMilliseconds : 4000
-              );
-            }
+            setSuccess(message, opts);
           },
           setLoading: (state: boolean) => {
-            setIsLoadingActive(state);
+            setLoading(state);
           },
         }}
       >
