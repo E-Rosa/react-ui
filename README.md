@@ -83,6 +83,8 @@ export function App(){
 }
 ```
 
+It is also possible to create feedback messages outside a React Component by using the `emitSuccess()`, `emitError()` and `emitLoading()` functions.
+
 ## ``<Modal>``
 See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
 

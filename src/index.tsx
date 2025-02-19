@@ -3,6 +3,9 @@ import Modal from "./components/modal/modal";
 import {
   FeedbackProvider,
   FeedbackProviderContext,
+  emitError,
+  emitLoading,
+  emitSuccess
 } from "./components/feedbackProvider/feedbackProvider";
 import "./standards.css";
 
@@ -12,4 +15,7 @@ export {
   Modal,
   FeedbackProvider,
   FeedbackProviderContext,
+  emitError,
+  emitLoading,
+  emitSuccess
 };
