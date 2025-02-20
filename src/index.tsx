@@ -5,10 +5,10 @@ import {
   FeedbackProviderContext,
   emitError,
   emitLoading,
-  emitSuccess
+  emitSuccess,
+  useFeedback
 } from "./components/feedbackProvider/feedbackProvider";
 import "./standards.css";
-
 export {
   Carousel,
   CarouselContext,
@@ -17,5 +17,6 @@ export {
   FeedbackProviderContext,
   emitError,
   emitLoading,
-  emitSuccess
+  emitSuccess,
+  useFeedback
 };
