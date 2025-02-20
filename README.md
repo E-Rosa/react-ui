@@ -4,6 +4,13 @@ React easy to use custom components.
 # Introduction
 The components section below will illustrate how to use each of the UI elements provided by @eliasrrosa/react-ui. To see the components working, access: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm]
 
+# Usage
+Install with: `npm i @eliasrrosa/react-ui@latest`.
+
+If you would like to import the css for the components, in any .css file your app imports, declare: `@import "@eliasrrosa/react-ui"`
+
+Then import any components you would like. As in: `import { FeedbackProvider } from "@eliasrrosa/react-ui"`
+
 # components
 ## ```<Carousel />```
 See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
@@ -85,7 +92,7 @@ export function App(){
 
 It is also possible to create feedback messages outside a React Component by using the `emitSuccess()`, `emitError()` and `emitLoading()` functions.
 
-## ``<Modal>``
+## ``<Modal> (version < 2.0.0)``
 See this element working at: [https://codesandbox.io/p/sandbox/eliasrroca-react-ui-nluynm].
 
 A modal with: 
@@ -146,4 +153,4 @@ export function App(){
 
 ## Version Updates
 
-From version 2.0.0 onwards, <Modal /> has completely changed. It implements a new API, does not include context nor receives state setters as props. This solves a variety of problems with it.
+From version 2.0.0 onwards, `<Modal />` has completely changed. It implements a new API, does not include context nor receives state setters as props. This solves a variety of problems with it.
