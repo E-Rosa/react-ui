@@ -10,7 +10,7 @@ import "./feedbackProvider.css";
 import { closeIcon } from "../modal/modal";
 import { v4 } from "uuid";
 import { FeedbackSuccessEventPayload } from "../../observers/events/FeedbackEvents";
-import { EventEmitter } from "../../observers/emitters/EventEmitter";
+import { EventEmitter } from "@eliasrrosa/event-emitter";
 import { errorIcon, successIcon } from "../../assets/icons";
 
 export type SuccessEvent = {
