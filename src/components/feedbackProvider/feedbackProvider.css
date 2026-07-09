@@ -59,6 +59,7 @@
   background-color: transparent;
   margin-left: 1em;
   cursor: pointer;
+  width: 1em;
 }
 
 .loadingContainer {

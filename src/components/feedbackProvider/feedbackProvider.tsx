@@ -65,7 +65,7 @@ export const FeedbackProviderContext = createContext({
     opts?: {
       isPermanent?: boolean;
       durationMilliseconds?: number;
-    }
+    },
   ) => {
     message;
     opts;
@@ -105,7 +105,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
             : {
                 durationMilliseconds: 4000,
                 isPermanent: false,
-              }
+              },
         );
       },
     });
@@ -127,7 +127,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
     opts?: {
       isPermanent?: boolean;
       durationMilliseconds?: number;
-    }
+    },
   ) => {
     const id = v4();
     setSuccessMessages((prevSuccessMessages) => {
@@ -138,11 +138,11 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
         () => {
           setSuccessMessages((prevSuccessMessages) => {
             return prevSuccessMessages.filter(
-              (successMessage) => successMessage.id != id
+              (successMessage) => successMessage.id != id,
             );
           });
         },
-        opts?.durationMilliseconds ? opts.durationMilliseconds : 4000
+        opts?.durationMilliseconds ? opts.durationMilliseconds : 4000,
       );
     }
   };
@@ -213,18 +213,16 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
                   {successMessage.message != "" && (
                     <div className="break-all">{successMessage.message}</div>
                   )}
-                  {successMessage.opts?.isPermanent && (
-                    <div
-                      className="closeButtonContainer"
-                      onClick={() => {
-                        setSuccessMessages(
-                          successMessages.filter((_, i) => i != index)
-                        );
-                      }}
-                    >
-                      {closeIcon}
-                    </div>
-                  )}
+                  <div
+                    className="closeButtonContainer"
+                    onClick={() => {
+                      setSuccessMessages(
+                        successMessages.filter((_, i) => i != index),
+                      );
+                    }}
+                  >
+                    {closeIcon}
+                  </div>
                 </motion.div>
               );
             })}
@@ -255,7 +253,7 @@ export function FeedbackProvider({ children }: { children: ReactNode }) {
             opts?: {
               isPermanent?: boolean;
               durationMilliseconds?: number;
-            }
+            },
           ) => {
             setSuccess(message, opts);
           },
